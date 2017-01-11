@@ -32,7 +32,7 @@ RUN set -x \
        fi \
     && mkdir /tmp/packages \
     && tar xf /tmp/wheels.tar.gz -C /tmp/packages/ --strip-components=2 root/packages \
-    && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
+    && curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
     && python get-pip.py \
     && rm get-pip.py \
     && pip install virtualenv \
@@ -48,7 +48,6 @@ RUN set -x \
     && pip install --no-index --no-compile --find-links /tmp/packages --constraint /tmp/packages/upper-constraints.txt python-memcached pymysql \
 # Project specific command block end
     && yum history -y undo $(yum history list git | tail -2 | head -1 | awk '{ print $1}') \
-    && rpm -e --nodeps centos-logos \
     && yum clean all \
     && rm -rf /tmp/* /root/.cache \
     && find / -type f \( -name "*.pyc" -o -name "pip" -o -name "easy_install" -o -name "wheel" \) -delete

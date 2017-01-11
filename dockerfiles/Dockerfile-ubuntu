@@ -33,7 +33,7 @@ RUN set -x \
        fi \
     && mkdir /tmp/packages \
     && tar xf /tmp/wheels.tar.gz -C /tmp/packages/ --strip-components=2 root/packages \
-    && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
+    && curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
     && python get-pip.py \
     && rm get-pip.py \
     && pip install virtualenv \

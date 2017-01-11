@@ -21,7 +21,7 @@ COMMON_INSTALL=$(cat <<'END_HEREDOC'
        fi \\\n\
     && mkdir /tmp/packages \\\n\
     && tar xf /tmp/wheels.tar.gz -C /tmp/packages/ --strip-components=2 root/packages \\\n\
-    && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \\\n\
+    && curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py \\\n\
     && python get-pip.py \\\n\
     && rm get-pip.py \\\n\
     && pip install virtualenv \\\n\
