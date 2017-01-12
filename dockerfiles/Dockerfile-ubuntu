@@ -11,7 +11,7 @@ ARG GIT_REF_REPO=https://git.openstack.org/openstack/${PROJECT}
 
 RUN set -x \
     && apt-key adv --fetch-keys "http://download.ceph.com/keys/release.asc" \
-    && echo "deb http://download.ceph.com/debian-jewel jessie main" > /etc/apt/sources.list.d/ceph.list \
+    && echo "deb http://download.ceph.com/debian-jewel xenial main" > /etc/apt/sources.list.d/ceph.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
 # Project specific packages start
