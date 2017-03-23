@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:jessie-slim
 
 ENV PROJECT=glance
 ARG DOCKER_REPO=yaodu/openstack-requirements
@@ -7,47 +7,12 @@ ARG WHEELS
 ARG GIT_REPO=https://github.com/openstack/${PROJECT}
 ARG GIT_REF
 ARG GIT_REF_REPO=https://git.openstack.org/openstack/${PROJECT}
+ARG SCRIPTS=https://github.com/yaodu/common/archive/0.1.2.tar.gz
 
 RUN set -x \
-    && apt-key adv --fetch-keys "http://download.ceph.com/keys/release.asc" \
-    && echo "deb http://download.ceph.com/debian-jewel jessie main" > /etc/apt/sources.list.d/ceph.list \
     && apt-get update \
-    && apt-get install -y --no-install-recommends \
-# Project specific packages start
-        python \
-        python-rados \
-# Project specific packages end
-    && apt-get install -y --no-install-recommends ca-certificates curl git \
-# common install start
-    && if [ -n "$WHEELS" ]; then \
-        curl -sSL ${WHEELS} > /tmp/wheels.tar.gz; \
-       else \
-        TOKEN=$(curl -sSL "https://auth.docker.io/token?service=registry.docker.io&scope=repository:${DOCKER_REPO}:pull" | \
-                    python -c "import sys, json; print json.load(sys.stdin)['token']") \
-        && BLOB=$(curl -sSL -H "Authorization: Bearer ${TOKEN}" https://registry.hub.docker.com/v2/${DOCKER_REPO}/manifests/${DOCKER_TAG} | \
-                    python -c "import sys, json; print json.load(sys.stdin)['fsLayers'][0]['blobSum']") \
-        && curl -sSL -H "Authorization: Bearer ${TOKEN}" https://registry.hub.docker.com/v2/${DOCKER_REPO}/blobs/${BLOB} > /tmp/wheels.tar.gz; \
-       fi \
-    && git clone ${GIT_REPO} /tmp/${PROJECT} \
-    && if [ -n "$GIT_REF" ]; then \
-        git --git-dir /tmp/${PROJECT}/.git fetch ${GIT_REF_REPO} ${GIT_REF} \
-        && git --git-dir /tmp/${PROJECT}/.git checkout FETCH_HEAD; \
-       fi \
-    && mkdir /tmp/packages \
-    && tar xf /tmp/wheels.tar.gz -C /tmp/packages/ --strip-components=2 root/packages \
-    && curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
-    && python get-pip.py \
-    && rm get-pip.py \
-    && pip install --no-cache-dir --no-index --no-compile --find-links /tmp/packages --constraint /tmp/packages/upper-constraints.txt /tmp/${PROJECT} \
-    && groupadd -g 42424 ${PROJECT} \
-    && useradd -u 42424 -g ${PROJECT} -M -d /var/lib/${PROJECT} -s /usr/sbin/nologin -c "${PROJECT} user" ${PROJECT} \
-    && mkdir -p /etc/${PROJECT} /var/log/${PROJECT} /var/lib/${PROJECT} /var/cache/${PROJECT} \
-    && chown ${PROJECT}:${PROJECT} /etc/${PROJECT} /var/log/${PROJECT} /var/lib/${PROJECT} /var/cache/${PROJECT} \
-# common install end
-# Project specific command block start
-    && pip install --no-cache-dir --no-index --no-compile --find-links /tmp/packages --constraint /tmp/packages/upper-constraints.txt python-memcached pymysql \
-# Project specific command block end
-    && apt-get purge -y --auto-remove ca-certificates curl git \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /root/.cache \
-    && pip uninstall pip wheel -y \
-    && find / -type f -name "*.pyc" -delete
+    && apt-get install -y --no-install-recommends python ca-certificates curl \
+    && curl -sSL $SCRIPTS | tar xz -C /tmp/ --strip-components=2 \
+    && /tmp/download.sh $DOCKER_REPO $DOCKER_TAG $WHEELS \
+    && /tmp/install.sh $PROJECT $GIT_REPO $GIT_REF_REPO $GIT_REF \
+    && /tmp/cleanup.sh
