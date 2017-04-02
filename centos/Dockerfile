@@ -10,8 +10,10 @@ ARG GIT_REF_REPO=https://git.openstack.org/openstack/${PROJECT}
 ARG SCRIPTS=https://github.com/yaodu/common/archive/0.1.2.tar.gz
 ARG OVERRIDE=empty.tar.gz
 
+RUN cat /etc/yum.conf.d/CentOS-Base.repo
 ADD $OVERRIDE /
 
+RUN cat /etc/yum.conf.d/CentOS-Base.repo
 RUN set -x \
     && yum install --setopt=tsflags=nodocs -y python curl \
     && curl -sSL $SCRIPTS | tar xz -C /tmp/ --strip-components=2 \
