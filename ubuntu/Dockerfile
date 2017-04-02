@@ -14,7 +14,11 @@ ADD $OVERRIDE /
 
 RUN set -x \
     && apt-get update \
-    && apt-get install -y --no-install-recommends python ca-certificates curl \
+    && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        ceph-common \
+        curl \
+        python-rbd \
     && curl -sSL $SCRIPTS | tar xz -C /tmp/ --strip-components=2 \
     && /tmp/download.sh $DOCKER_REPO $DOCKER_TAG $WHEELS \
     && /tmp/install.sh $PROJECT $GIT_REPO $GIT_REF_REPO $GIT_REF \
