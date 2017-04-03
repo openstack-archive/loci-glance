@@ -1,0 +1,9 @@
+Code-Review+1: Sébastien Han <seb@redhat.com>
+Code-Review+2: Pete Birley <pete@port.direct>
+Workflow+1: Pete Birley <pete@port.direct>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Mon, 03 Apr 2017 15:14:21 +0000
+Reviewed-on: https://review.openstack.org/451547
+Project: openstack/loci-glance
+Branch: refs/heads/master
