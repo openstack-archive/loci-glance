@@ -7,14 +7,15 @@ ARG WHEELS
 ARG GIT_REPO=https://git.openstack.org/openstack/${PROJECT}
 ARG GIT_REF
 ARG GIT_REF_REPO=https://git.openstack.org/openstack/${PROJECT}
-ARG SCRIPTS=https://github.com/yaodu/common/archive/0.1.2.tar.gz
+ARG SCRIPTS_REF=0.1.2
+ARG SCRIPTS_REPO=https://github.com/yaodu/common/
 ARG OVERRIDE=empty
 
 ADD $OVERRIDE /
 
 RUN set -x \
-    && yum install --setopt=tsflags=nodocs -y python curl \
-    && curl -sSL $SCRIPTS | tar xz -C /tmp/ --strip-components=2 \
-    && /tmp/download.sh $DOCKER_REPO $DOCKER_TAG $WHEELS \
-    && /tmp/install.sh $PROJECT $GIT_REPO $GIT_REF_REPO $GIT_REF \
-    && /tmp/cleanup.sh
+    && yum install --setopt=tsflags=nodocs -y python git \
+    && git clone --branch $SCRIPTS_REF --depth 1 $SCRIPTS_REPO /tmp/common \
+    && /tmp/common/scripts/download.sh $DOCKER_REPO $DOCKER_TAG $WHEELS \
+    && /tmp/common/scripts/install.sh $PROJECT $GIT_REPO $GIT_REF_REPO $GIT_REF \
+    && /tmp/common/scripts/cleanup.sh
