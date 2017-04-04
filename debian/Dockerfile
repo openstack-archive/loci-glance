@@ -19,6 +19,7 @@ RUN set -x \
     && git init /tmp/common/ \
     && git --git-dir /tmp/common/.git fetch --depth 1 $SCRIPTS_REPO $SCRIPTS_REF \
     && git --work-tree /tmp/common --git-dir /tmp/common/.git checkout FETCH_HEAD \
-    && /tmp/common/scripts/download.sh $DOCKER_REPO $DOCKER_TAG $WHEELS \
-    && /tmp/common/scripts/install.sh $PROJECT $GIT_REPO $GIT_REF_REPO $GIT_REF \
+    && git --git-dir /tmp/common/.git/ checkout FETCH_HEAD  \
+    && /tmp/common/scripts/download.sh \
+    && /tmp/common/scripts/install.sh \
     && /tmp/common/scripts/cleanup.sh
