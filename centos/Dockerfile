@@ -9,7 +9,7 @@ ARG GIT_REF
 ARG GIT_REF_REPO=https://git.openstack.org/openstack/${PROJECT}
 ARG SCRIPTS_REPO=https://github.com/openstack/loci
 ARG SCRIPTS_REF=master
-ARG OVERRIDE=empty
+ARG OVERRIDE=override
 
 ADD $OVERRIDE /
 
