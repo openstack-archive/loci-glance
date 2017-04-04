@@ -7,8 +7,8 @@ ARG WHEELS
 ARG GIT_REPO=https://git.openstack.org/openstack/${PROJECT}
 ARG GIT_REF
 ARG GIT_REF_REPO=https://git.openstack.org/openstack/${PROJECT}
-ARG SCRIPTS_REF=0.1.2
-ARG SCRIPTS_REPO=https://github.com/yaodu/common/
+ARG SCRIPTS_REPO=https://github.com/openstack/loci
+ARG SCRIPTS_REF=master
 ARG OVERRIDE=empty
 
 ADD $OVERRIDE /
@@ -16,7 +16,9 @@ ADD $OVERRIDE /
 RUN set -x \
     && apt-get update \
     && apt-get install -y --no-install-recommends python ca-certificates curl git \
-    && git clone --branch $SCRIPTS_REF --depth 1 $SCRIPTS_REPO /tmp/common \
+    && git init /tmp/common/ \
+    && git --git-dir /tmp/common/.git fetch --depth 1 $SCRIPTS_REPO $SCRIPTS_REF \
+    && git --work-tree /tmp/common --git-dir /tmp/common/.git checkout FETCH_HEAD \
     && /tmp/common/scripts/download.sh $DOCKER_REPO $DOCKER_TAG $WHEELS \
     && /tmp/common/scripts/install.sh $PROJECT $GIT_REPO $GIT_REF_REPO $GIT_REF \
     && /tmp/common/scripts/cleanup.sh
