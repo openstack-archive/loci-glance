@@ -7,8 +7,8 @@ ARG WHEELS
 ARG GIT_REPO=https://git.openstack.org/openstack/${PROJECT}
 ARG GIT_REF
 ARG GIT_REF_REPO=https://git.openstack.org/openstack/${PROJECT}
-ARG SCRIPTS_REF=0.1.2
-ARG SCRIPTS_REPO=https://github.com/yaodu/common/
+ARG SCRIPTS_REF=master
+ARG SCRIPTS_REPO=https://github.com/openstack/loci/
 ARG OVERRIDE=empty
 
 ADD $OVERRIDE /
