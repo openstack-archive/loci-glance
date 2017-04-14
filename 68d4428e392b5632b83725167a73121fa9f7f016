@@ -1,0 +1,9 @@
+Code-Review+2: Pete Birley <pete@port.direct>
+Workflow+1: Pete Birley <pete@port.direct>
+Workflow+1: Sam Yaple <sam@yaple.net>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 14 Apr 2017 23:32:16 +0000
+Reviewed-on: https://review.openstack.org/456956
+Project: openstack/loci-glance
+Branch: refs/heads/master
