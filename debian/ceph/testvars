@@ -1,0 +1,2 @@
+export DISTRO=debian
+export PLUGIN=ceph
