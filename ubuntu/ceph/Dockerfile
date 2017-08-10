@@ -1,4 +1,5 @@
-FROM openstackloci/glance:ubuntu
+ARG FROM=openstackloci/glance:ubuntu
+FROM ${FROM}
 
 ARG OVERRIDE=override
 
