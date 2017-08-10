@@ -1,4 +1,5 @@
-FROM openstackloci/glance:debian
+ARG FROM=openstackloci/glance:debian
+FROM ${FROM}
 
 ARG OVERRIDE=override
 
