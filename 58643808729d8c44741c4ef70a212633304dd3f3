@@ -1,0 +1,9 @@
+Code-Review+2: Paul Bourke (pbourke) <paul.bourke@oracle.com>
+Code-Review+2: John Griffith <john.griffith8@gmail.com>
+Workflow+1: John Griffith <john.griffith8@gmail.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Fri, 11 Aug 2017 14:56:03 +0000
+Reviewed-on: https://review.openstack.org/492642
+Project: openstack/loci-glance
+Branch: refs/heads/master
