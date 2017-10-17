@@ -1,3 +1,0 @@
-export PROJECT=glance
-export DISTRO=centos
-export PLUGIN=ceph

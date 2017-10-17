@@ -1,3 +1,0 @@
-export PROJECT=glance
-export DISTRO=debian
-export PLUGIN=ceph

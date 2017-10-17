@@ -1,0 +1,8 @@
+- project:
+    name: openstack/loci-glance
+    check:
+      jobs:
+        - noop
+    gate:
+      jobs:
+        - noop
