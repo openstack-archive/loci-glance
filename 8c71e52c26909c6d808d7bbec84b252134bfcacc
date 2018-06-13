@@ -1,0 +1,9 @@
+Code-Review+2: Sam Yaple <sam+git@yaple.net>
+Workflow+1: Sam Yaple <sam+git@yaple.net>
+Code-Review+1: Andreas Jaeger <jaegerandi@gmail.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Wed, 13 Jun 2018 07:26:31 +0000
+Reviewed-on: https://review.openstack.org/574397
+Project: openstack/loci-glance
+Branch: refs/heads/master
